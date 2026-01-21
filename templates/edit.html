@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    {% include "_navbar.html" %}
+    <h1> Update Expense</h1>
+
+
+    <form action="{{ url_for('update_expense', id=expense['id']) }}" method="post">
+
+
+
+        <label>Category:</label><br>
+        <input type="text" name="category" value="{{expense['Category']}}" required>
+        <br><br>
+
+        <label>Amount:</label><br>
+        <input type="number" name="amount" value="{{expense['Amount']}}" step="0.01" required>
+        <br><br>
+
+        <label>Notes:</label><br>
+        <input type="text" name="notes" value="{{expense['Notes']}}" required>
+        <br><br>
+
+        <button type="submit">update Expense</button>
+
+    </form>
+
+    <br>
+
+</body>
+</html>

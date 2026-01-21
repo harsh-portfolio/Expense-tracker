@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expenses</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+{% include "_navbar.html" %}
+
+<h1>Expense List</h1>
+
+{% if expense %}
+<table border="1" cellpadding="8">
+    <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Notes</th>
+        <th>Date & Time</th>
+        <th>Actions</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for exp in expense %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ exp["id"] }}</td>
+        <td>{{ exp["category"] }}</td>
+        <td>{{ exp["amount"] }}</td>
+        <td>{{ exp["notes"] }}</td>
+        <td>{{ exp["created_at"] }}</td>
+        <td>
+            <a href="{{ url_for('edit_expense', id=exp['id']) }}">Update</a>
+
+        </td>
+        <td>
+            <a href="{{ url_for('delete_expense', id=exp['id']) }}"
+               onclick="return confirm('Delete this expense?');">
+               Delete
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    <tr>
+        <td colspan="3"><strong>Total</strong></td>
+        <td colspan="3"><strong>{{ total }}</strong></td>
+    </tr>
+</table>
+{% else %}
+<p>No expenses found.</p>
+{% endif %}
+
+{% if expense %}
+<h2>Category Totals</h2>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>Total</th>
+    </tr>
+
+    {% for key, value in category.items() %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+</body>
+</html>
